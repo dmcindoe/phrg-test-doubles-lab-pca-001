@@ -4,20 +4,18 @@ RSpec.describe "Doubles" do
   # Instead of using instances in these tests, 
   # replace each of these with a 'leaf' test double
   it "leaf returns expected color" do
-    tree = Tree.new
-    branch = Branch.new(tree)
-    leaf = Leaf.new(branch)
+    # tree = Tree.new
+    # branch = Branch.new(tree)
+    # leaf = Leaf.new(branch)
 
+    leaf = double("leaf", :color => "green")
     expect(leaf.color).to eq("green")
-
     expect(leaf).to_not be_instance_of(Leaf)
   end
 
   it "leaf's branch returns expected length" do
-    tree = Tree.new
-    branch = Branch.new(tree)
-    leaf = Leaf.new(branch)
 
+    leaf = double(branch: double(length: "4 feet"))
     expect(leaf.branch.length).to eq("4 feet")
 
     expect(leaf).to_not be_instance_of(Leaf)
@@ -25,9 +23,8 @@ RSpec.describe "Doubles" do
   end
 
   it "leaf's branch's tree returns expected bark" do
-    tree = Tree.new
-    branch = Branch.new(tree)
-    leaf = Leaf.new(branch)
+
+    leaf = double(branch: (double(tree: double(bark: "thick and brown"))))
 
     expect(leaf.branch.tree.bark).to eq("thick and brown")
 
